@@ -85,4 +85,14 @@ abstract class Query
     {
         return in_array($this->getKey(), $keys);
     }
+
+    /**
+     * Convert query to array format.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [$this->getKey() => $this->getValue()];
+    }
 }

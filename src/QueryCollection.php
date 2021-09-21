@@ -74,6 +74,21 @@ class QueryCollection implements ArrayAccess, Iterator
     }
 
     /**
+     * Convert all collection's queries to array format.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        $result = [];
+        foreach ($this->queries as $query) {
+            $result[] = $query->toArray();
+        }
+
+        return $result;
+    }
+
+    /**
      * Push query onto the end of the collection
      *
      * @param Query $filter

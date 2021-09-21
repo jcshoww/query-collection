@@ -191,4 +191,19 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(2, $result);
     }
+
+    /**
+     * Test collection to array procedure
+     */
+    public function testSuccessToArray()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test2'));
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(2, $result);
+    }
 }
