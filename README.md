@@ -37,7 +37,6 @@ Create your own custom query objects and extend them from Query class.
 Look example below:
 
 ```bash
-
 ...
 use Jcshoww\QueryCollection\Builder\Builder;
 use Jcshoww\QueryCollection\Query\Query;
