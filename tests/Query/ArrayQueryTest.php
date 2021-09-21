@@ -5,7 +5,6 @@ namespace Jcshoww\QueryCollection\Test\Query;
 use Jcshoww\QueryCollection\Builder\Builder;
 use Jcshoww\QueryCollection\Query\ArrayQuery;
 use Jcshoww\QueryCollection\Test\TestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * ArrayQueryTest
@@ -28,11 +27,7 @@ class ArrayQueryTest extends TestCase
      */
     public function testSuccessApply()
     {
-        /** @var MockObject|Builder */
-        $builder = $this->getMockBuilder(Builder::class)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
-        $builder->setQuery([]);
+        $builder = new Builder([]);
 
         $key = 'test';
         $value = 'test2';

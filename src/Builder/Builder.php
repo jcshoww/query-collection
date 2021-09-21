@@ -7,7 +7,7 @@ namespace Jcshoww\QueryCollection\Builder;
  *
  * @package Jcshoww\QueryCollection\Builder
  */
-abstract class Builder
+class Builder
 {
     /**
      * Query builder entity
