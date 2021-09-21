@@ -19,7 +19,7 @@ Look example below:
 ```bash
 
 ...
-use Jcshoww\QueryCollection;
+use Jcshoww\QueryCollection\QueryCollection;
 
 class TestQueryCollection extends QueryCollection
 {
