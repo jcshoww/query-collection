@@ -1,0 +1,10 @@
+#Editor files
+/.idea
+/.vscode
+/.vagrant
+
+#Other files
+/vendor
+phpunit.xml
+.phpunit.result.cache
+composer.phar

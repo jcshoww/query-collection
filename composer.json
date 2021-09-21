@@ -1,0 +1,29 @@
+{
+    "name": "jcshoww/query-collection",
+    "version": "1.0.0",
+    "description": "Query collection library for query continious building",
+    "homepage": "https://github.com/jcshoww/query-collection",
+    "license": "MIT",
+    "require": {
+        "php": "^7.0 || ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jcshoww\\QueryCollection\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jcshoww\\QueryCollection\\Test\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5",
+        "symfony/var-dumper": "^5.3"
+    }
+}
