@@ -204,6 +204,6 @@ class QueryCollectionTest extends TestCase
         
         $result = $collection->toArray();
         $this->assertNotEmpty($result);
-        $this->assertCount(2, $result);
+        $this->assertCount(2, $result); 
     }
 }
