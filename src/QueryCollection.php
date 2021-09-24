@@ -360,4 +360,22 @@ class QueryCollection implements ArrayAccess, Iterator
 
         return $result;
     }
+
+    /**
+     * Function merges collection with passed collections
+     * 
+     * @param QueryCollection ...$collections
+     * 
+     * @return self
+     */
+    public function merge(QueryCollection ...$collections): self
+    {
+        foreach ($collections as $collection) {
+            foreach ($collection->all() as $element) {
+                $this->push($element);
+            }
+        }
+
+        return $this;
+    }
 }
