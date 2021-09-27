@@ -82,7 +82,7 @@ class QueryCollection implements ArrayAccess, Iterator
     {
         $result = [];
         foreach ($this->queries as $query) {
-            $result[] = $query->toArray();
+            $result = array_merge($result, $query->toArray());
         }
 
         return $result;
