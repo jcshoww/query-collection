@@ -39,7 +39,7 @@ abstract class Query
      */
     public function getKey()
     {
-        return preg_replace('/\\/', '_', get_class($this));
+        return preg_replace('/\\\/', '_', get_class($this));
     }
 
     /**
