@@ -266,7 +266,7 @@ class QueryCollection implements ArrayAccess, Iterator
      * 
      * @return Query|null
      */
-    public function first(string $field): ?Query
+    public function first(string $field)
     {
         $key = $this->find($field);
         if ($key === null) {
