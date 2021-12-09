@@ -19,9 +19,9 @@ use RuntimeException;
  */
 class QueryCollection implements ArrayAccess, Iterator
 {
-    public const PAGENAV_DEFAULT_OFFSET = 0;
+    const PAGENAV_DEFAULT_OFFSET = 0;
 
-    public const PAGENAV_DEFAULT_LIMIT = 50;
+    const PAGENAV_DEFAULT_LIMIT = 50;
 
     /**
      * Class of default query object
