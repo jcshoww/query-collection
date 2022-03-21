@@ -129,10 +129,6 @@ abstract class Builder
         return [
             self::DIRECTION_ASC => 'ASC',
             self::DIRECTION_DESC => 'DESC',
-            self::GREATER_THEN => '>',
-            self::GREATER_THEN_OR_EQUAL => '>=',
-            self::LESS_THEN => '<',
-            self::LESS_THEN_OR_EQUAL => '<='
         ];
     }
 }
