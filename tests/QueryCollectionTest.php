@@ -2,7 +2,6 @@
 
 namespace Jcshoww\QueryCollection\Test;
 
-use Jcshoww\QueryCollection\Builder\ArrayBuilder;
 use Jcshoww\QueryCollection\Query\Where;
 use Jcshoww\QueryCollection\QueryCollection;
 
@@ -27,7 +26,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFill()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $result = $collection->fill([['test' => 'test3']]);
         $this->assertNotEmpty($result);
         $this->assertInstanceOf(Where::class, $result[0]);
@@ -38,7 +37,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessAll()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $collection->push(new Where('test', 'test3'));
         $result = $collection->all();
         $this->assertNotEmpty($result);
@@ -50,7 +49,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessPush()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $collection->push(new Where('test', 'test3'))->push(new Where('test2', 'test3'));
         $result = $collection->all();
         $this->assertNotEmpty($result);
@@ -63,7 +62,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessSet()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value))->push(new Where('test2', 'test3'));
@@ -78,7 +77,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessPop()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where('test2', 'test3'))->push(new Where($key, $value));
@@ -94,7 +93,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessGet()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value))->push(new Where('test2', 'test3'));
@@ -109,7 +108,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessHas()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value));
@@ -123,7 +122,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFirst()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
@@ -138,7 +137,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessExtract()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
@@ -155,7 +154,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFind()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where('test2', 'test2'))->push(new Where($key, $value));
@@ -169,7 +168,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessExclude()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
@@ -183,7 +182,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFilterByTypes()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
@@ -198,7 +197,7 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessToArray()
     {
-        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection = new QueryCollection();
         $key = 'test';
         $value = 'test3';
         $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));

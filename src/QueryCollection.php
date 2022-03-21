@@ -30,11 +30,6 @@ class QueryCollection implements ArrayAccess, Iterator
     protected $queryDefaultClass = Where::class;
 
     /**
-     * @var Builder
-     */
-    protected $builder;
-
-    /**
      * @var int
      */
     protected $position = 0;
@@ -47,36 +42,11 @@ class QueryCollection implements ArrayAccess, Iterator
     /**
      * Default constructor appends every array field=>value as new filter with equal comparsion
      * 
-     * @param Builder $builder
      * @param array $fields
      */
-    public function __construct(Builder $builder, array $fields = [])
+    public function __construct(array $fields = [])
     {
-        $this->setBuilder($builder);
         $this->fill($fields);
-    }
-
-    /**
-     * Function sets collection builder
-     *
-     * @param Builder $builder
-     *
-     * @return self
-     */
-    public function setBuilder(Builder $builder): self
-    {
-        $this->builder = $builder;
-        return $this;
-    }
-
-    /**
-     * Function returns collection builder
-     *
-     * @return Builder
-     */
-    public function getBuilder(): Builder
-    {
-        return $this->builder;
     }
 
     /**
