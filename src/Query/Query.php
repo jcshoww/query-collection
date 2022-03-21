@@ -28,9 +28,9 @@ abstract class Query
      * 
      * @param Builder $builder
      * 
-     * @return Builder
+     * @return Query
      */
-    abstract public function apply(Builder $builder): Builder;
+    abstract public function apply(Builder $builder): Query;
 
     /**
      * Function returns query key name
@@ -84,15 +84,5 @@ abstract class Query
     public function is(array $keys): bool
     {
         return in_array($this->getKey(), $keys);
-    }
-
-    /**
-     * Convert query to array format.
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [$this->getKey() => $this->getValue()];
     }
 }

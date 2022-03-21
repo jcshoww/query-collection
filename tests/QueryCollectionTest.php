@@ -2,7 +2,8 @@
 
 namespace Jcshoww\QueryCollection\Test;
 
-use Jcshoww\QueryCollection\Query\ArrayQuery;
+use Jcshoww\QueryCollection\Builder\ArrayBuilder;
+use Jcshoww\QueryCollection\Query\Where;
 use Jcshoww\QueryCollection\QueryCollection;
 
 /**
@@ -26,10 +27,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFill()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $result = $collection->fill([['test' => 'test3']]);
         $this->assertNotEmpty($result);
-        $this->assertInstanceOf(ArrayQuery::class, $result[0]);
+        $this->assertInstanceOf(Where::class, $result[0]);
     }
 
     /**
@@ -37,11 +38,11 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessAll()
     {
-        $collection = new QueryCollection();
-        $collection->push(new ArrayQuery('test', 'test3'));
+        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection->push(new Where('test', 'test3'));
         $result = $collection->all();
         $this->assertNotEmpty($result);
-        $this->assertInstanceOf(ArrayQuery::class, $result[0]);
+        $this->assertInstanceOf(Where::class, $result[0]);
     }
 
     /**
@@ -49,12 +50,12 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessPush()
     {
-        $collection = new QueryCollection();
-        $collection->push(new ArrayQuery('test', 'test3'))->push(new ArrayQuery('test2', 'test3'));
+        $collection = new QueryCollection(new ArrayBuilder([]));
+        $collection->push(new Where('test', 'test3'))->push(new Where('test2', 'test3'));
         $result = $collection->all();
         $this->assertNotEmpty($result);
-        $this->assertInstanceOf(ArrayQuery::class, $result[0]);
-        $this->assertInstanceOf(ArrayQuery::class, $result[1]);
+        $this->assertInstanceOf(Where::class, $result[0]);
+        $this->assertInstanceOf(Where::class, $result[1]);
     }
 
     /**
@@ -62,10 +63,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessSet()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test3'));
+        $collection->push(new Where($key, $value))->push(new Where('test2', 'test3'));
         
         $result = $collection->get(0);
         $this->assertNotEmpty($result);
@@ -77,14 +78,14 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessPop()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery('test2', 'test3'))->push(new ArrayQuery($key, $value));
+        $collection->push(new Where('test2', 'test3'))->push(new Where($key, $value));
         
         $result = $collection->pop();
         $this->assertNotEmpty($result);
-        $this->assertInstanceOf(ArrayQuery::class, $result);
+        $this->assertInstanceOf(Where::class, $result);
         $this->assertEquals($key, $result->getKey());
     }
 
@@ -93,10 +94,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessGet()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test3'));
+        $collection->push(new Where($key, $value))->push(new Where('test2', 'test3'));
         
         $result = $collection->get(0);
         $this->assertNotEmpty($result);
@@ -108,10 +109,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessHas()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value));
+        $collection->push(new Where($key, $value));
         
         $result = $collection->has(0);
         $this->assertTrue($result);
@@ -122,10 +123,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFirst()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test2'));
+        $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
         
         $result = $collection->first($key);
         $this->assertNotEmpty($result);
@@ -137,10 +138,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessExtract()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test2'));
+        $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
         
         $result = $collection->extract($key);
         $this->assertNotEmpty($result);
@@ -154,10 +155,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFind()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery('test2', 'test2'))->push(new ArrayQuery($key, $value));
+        $collection->push(new Where('test2', 'test2'))->push(new Where($key, $value));
         
         $result = $collection->find($key);
         $this->assertEquals($result, 1);
@@ -168,10 +169,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessExclude()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test2'));
+        $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
         
         $collection->exclude(['Filter']);
         $this->assertEmpty($collection->all());
@@ -182,10 +183,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessFilterByTypes()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test2'));
+        $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
         
         $result = $collection->filterByTypes(['Filter']);
         $this->assertNotEmpty($result);
@@ -197,10 +198,10 @@ class QueryCollectionTest extends TestCase
      */
     public function testSuccessToArray()
     {
-        $collection = new QueryCollection();
+        $collection = new QueryCollection(new ArrayBuilder([]));
         $key = 'test';
         $value = 'test3';
-        $collection->push(new ArrayQuery($key, $value))->push(new ArrayQuery('test2', 'test2'));
+        $collection->push(new Where($key, $value))->push(new Where('test2', 'test2'));
         
         $result = $collection->toArray();
         $this->assertNotEmpty($result);

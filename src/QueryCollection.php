@@ -4,8 +4,9 @@ namespace Jcshoww\QueryCollection;
 
 use ArrayAccess;
 use Iterator;
-use Jcshoww\QueryCollection\Query\ArrayQuery;
+use Jcshoww\QueryCollection\Builder\Builder;
 use Jcshoww\QueryCollection\Query\Query;
+use Jcshoww\QueryCollection\Query\Where;
 use OutOfBoundsException;
 use RuntimeException;
 
@@ -26,7 +27,12 @@ class QueryCollection implements ArrayAccess, Iterator
     /**
      * Class of default query object
      */
-    protected $queryDefaultClass = ArrayQuery::class;
+    protected $queryDefaultClass = Where::class;
+
+    /**
+     * @var Builder
+     */
+    protected $builder;
 
     /**
      * @var int
@@ -41,11 +47,36 @@ class QueryCollection implements ArrayAccess, Iterator
     /**
      * Default constructor appends every array field=>value as new filter with equal comparsion
      * 
+     * @param Builder $builder
      * @param array $fields
      */
-    public function __construct(array $fields = [])
+    public function __construct(Builder $builder, array $fields = [])
     {
+        $this->setBuilder($builder);
         $this->fill($fields);
+    }
+
+    /**
+     * Function sets collection builder
+     *
+     * @param Builder $builder
+     *
+     * @return self
+     */
+    public function setBuilder(Builder $builder): self
+    {
+        $this->builder = $builder;
+        return $this;
+    }
+
+    /**
+     * Function returns collection builder
+     *
+     * @return Builder
+     */
+    public function getBuilder(): Builder
+    {
+        return $this->builder;
     }
 
     /**
@@ -82,7 +113,7 @@ class QueryCollection implements ArrayAccess, Iterator
     {
         $result = [];
         foreach ($this->queries as $query) {
-            $result = array_merge($result, $query->toArray());
+            $result[] = $query;
         }
 
         return $result;
@@ -93,7 +124,7 @@ class QueryCollection implements ArrayAccess, Iterator
      *
      * @param Query $filter
      * 
-     * @return $this
+     * @return self
      */
     public function push(Query $filter): self
     {
@@ -107,7 +138,7 @@ class QueryCollection implements ArrayAccess, Iterator
      *
      * @param Query $query
      * 
-     * @return $this
+     * @return self
      */
     public function set(Query $query): self
     {
@@ -377,5 +408,20 @@ class QueryCollection implements ArrayAccess, Iterator
         }
 
         return $this;
+    }
+
+    /**
+     * Function performs apply to set of queries
+     *
+     * @param Builder $builder
+     *
+     * @return mixed
+     */
+    public function apply(Builder $builder)
+    {
+        foreach ($this->queries as $query) {
+            $query->apply($builder);
+        }
+        return $builder->get();
     }
 }

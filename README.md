@@ -41,65 +41,58 @@ Look example below:
 use Jcshoww\QueryCollection\Builder\Builder;
 use Jcshoww\QueryCollection\Query\Query;
 
-class Where extends Query
+class Join extends Query
 {
-    public const EQUAL = '=';
-    public const NOT_EQUAL = '!=';
-    public const GREATER_THEN = '>';
-    public const GREATER_THEN_OR_EQUAL = '>=';
-    public const LESS_THEN = '<';
-    public const LESS_THEN_OR_EQUAL = '<=';
-    public const LIKE = 'LIKE';
-    public const ILIKE = 'ILIKE';
-    public const POSIX = '~';
-    public const POSIX_INSENSITIVE = '~*';
-
-    /**
-     * Field to search
-     * 
-     * @var string|Expression
-     */
-    public $field;
-
-    /**
-     * Expected value of filtering field
-     * 
-     * @var mixed
-     */
-    public $value;
-
-    /**
-     * Comparsion of search
-     * 
-     * @var string
-     */
-    public $comparsion;
-
-    /**
-     * Filter constructor, expects at least field and value
-     * 
-     * @param string|Expression $field
-     * @param mixed $value
-     * @param string $comparsion
-     */
-    public function __construct($field, $value, string $comparsion = self::EQUAL)
-    {
-        $this->field = $field;
-        $this->value = $value;
-        $this->comparsion = $comparsion;
-    }
-
     /**
      * {@inheritDoc}
      */
-    public function apply(Builder $builder): Builder
+    protected $type = 'Join';
+
+    /**
+     * table name
+     * 
+     * @var string
+     */
+    protected $table;
+
+    /**
+     * owner column to join
+     * 
+     * @var string
+     */
+    protected $ownerColumn;
+    
+    /**
+     * foreign column to join
+     * 
+     * @var string
+     */
+    protected $foreignColumn;
+
+    /**
+     * @param string $table
+     * @param string $ownerColumn
+     * @param string $foreignColumn
+     */
+    public function __construct(string $table, string $ownerColumn, string $foreignColumn)
     {
-        $query = $builder->getQuery();
-        $query->where($this->field, $this->comparsion, $this->value);
+        $this->table = $table;
+        $this->ownerColumn = $ownerColumn;
+        $this->foreignColumn = $foreignColumn;
+    }
+
+    /**
+     * @param LaravelBuilder $builder
+     * 
+     * @return Query
+     */
+    public function apply(Builder $builder): Query
+    {
+        $builder->join($this->table, $this->ownerColumn, Where::EQUAL, $this->foreignColumn);
         return $builder;
     }
 }
 
 ```
 
-Create your own custom builder objects and extend them from Builder class if you need customize or extend set of parameters, passed to Queries apply fuction.
+Create your own custom builder objects and extend them from Builder class to customize finishing operations between queries and applied system itself.

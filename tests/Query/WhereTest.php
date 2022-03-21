@@ -2,17 +2,18 @@
 
 namespace Jcshoww\QueryCollection\Test\Query;
 
-use Jcshoww\QueryCollection\Builder\Builder;
+use Jcshoww\QueryCollection\Builder\ArrayBuilder;
 use Jcshoww\QueryCollection\Query\ArrayQuery;
+use Jcshoww\QueryCollection\Query\Where;
 use Jcshoww\QueryCollection\Test\TestCase;
 
 /**
- * ArrayQueryTest
+ * WhereTest
  * 
  * @author jcshoww
  * @package Jcshoww\QueryCollection\Test\Query
  */
-class ArrayQueryTest extends TestCase
+class WhereTest extends TestCase
 {
     /**
      * {@inheritDoc}
@@ -27,14 +28,16 @@ class ArrayQueryTest extends TestCase
      */
     public function testSuccessApply()
     {
-        $builder = new Builder([]);
+        $builder = new ArrayBuilder([
+            'test3', 'test2'
+        ]);
 
         $key = 'test';
         $value = 'test2';
-        $query = new ArrayQuery('test', 'test2');
-        $builder = $query->apply($builder);
-        $result = $builder->getQuery();
-        $this->assertArrayHasKey($key, $result);
-        $this->assertEquals($result[$key], $value);
+        $query = new Where($key, $value);
+        $query->apply($builder);
+        $result = $builder->get();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
     }
 }
