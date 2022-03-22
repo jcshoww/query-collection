@@ -43,7 +43,7 @@ class OrderBy extends Query
      * @param string $column
      * @param string $direction
      */
-    public function __construct(string $column, string $direction = 'ASC')
+    public function __construct(string $column, string $direction = Builder::DIRECTION_ASC)
     {
         $this->column = $column;
         $this->direction = $direction;
