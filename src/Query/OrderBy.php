@@ -52,7 +52,7 @@ class OrderBy extends Query
     /**
      * @return OrderBy
      */
-    public function apply(Builder $builder): OrderBy
+    public function apply(Builder $builder): Query
     {
         $builder->orderBy($this->column, $this->direction);
         return $this;

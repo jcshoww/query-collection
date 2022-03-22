@@ -53,7 +53,7 @@ class Pagination extends Query
     /**
      * @return Pagination
      */
-    public function apply(Builder $builder): Pagination
+    public function apply(Builder $builder): Query
     {
         $builder->paginate($this->limit, $this->offset);
         return $this;

@@ -49,7 +49,7 @@ class Where extends Query
     /**
      * @return Where
      */
-    public function apply(Builder $builder): Where
+    public function apply(Builder $builder): Query
     {
         $builder->where($this->field, $this->value, $this->comparsion);
         return $this;

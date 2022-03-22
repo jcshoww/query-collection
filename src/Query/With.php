@@ -42,7 +42,7 @@ class With extends Query
     /**
      * @return With
      */
-    public function apply(Builder $builder): With
+    public function apply(Builder $builder): Query
     {
         $builder->with($this->relations);
         return $this;
