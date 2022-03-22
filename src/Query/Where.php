@@ -47,9 +47,9 @@ class Where extends Query
     }
 
     /**
-     * {@inheritDoc}
+     * @return Where
      */
-    public function apply(Builder $builder): Query
+    public function apply(Builder $builder): Where
     {
         $builder->where($this->field, $this->value, $this->comparsion);
         return $this;

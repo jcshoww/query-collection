@@ -40,9 +40,9 @@ class With extends Query
     }
 
     /**
-     * {@inheritDoc}
+     * @return With
      */
-    public function apply(Builder $builder): Query
+    public function apply(Builder $builder): With
     {
         $builder->with($this->relations);
         return $this;

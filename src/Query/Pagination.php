@@ -51,9 +51,9 @@ class Pagination extends Query
     }
 
     /**
-     * {@inheritDoc}
+     * @return Pagination
      */
-    public function apply(Builder $builder): Query
+    public function apply(Builder $builder): Pagination
     {
         $builder->paginate($this->limit, $this->offset);
         return $this;

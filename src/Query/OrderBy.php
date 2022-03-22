@@ -50,9 +50,9 @@ class OrderBy extends Query
     }
 
     /**
-     * {@inheritDoc}
+     * @return OrderBy
      */
-    public function apply(Builder $builder): Query
+    public function apply(Builder $builder): OrderBy
     {
         $builder->orderBy($this->column, $this->direction);
         return $this;
