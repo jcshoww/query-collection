@@ -85,15 +85,6 @@ class ArrayBuilder extends Builder
     /**
      * {@inheritDoc}
      */
-    public function with(array $relations): Builder
-    {
-        //@NOTE there is no functionality for this method in case of array processing
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function orderBy(string $column, string $direction): Builder
     {
         $data = $this->getQuery();

@@ -67,15 +67,6 @@ abstract class Builder
     abstract public function where(string $column, $value, $operator): Builder;
 
     /**
-     * Set the relationships that should be loaded
-     *
-     * @param array $relations
-     * 
-     * @return Builder
-     */
-    abstract public function with(array $relations): Builder;
-
-    /**
      * Set the ordering of query
      *
      * @param string $column
