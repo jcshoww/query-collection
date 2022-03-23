@@ -18,6 +18,9 @@ use Jcshoww\QueryCollection\Query\Query;
  */
 class OrderBy extends Query
 {
+    public const DIRECTION_ASC = 'asc';
+    public const DIRECTION_DESC = 'desc';
+
     /**
      * {@inheritDoc}
      */
@@ -43,7 +46,7 @@ class OrderBy extends Query
      * @param string $column
      * @param string $direction
      */
-    public function __construct(string $column, string $direction = Builder::DIRECTION_ASC)
+    public function __construct(string $column, string $direction = self::DIRECTION_ASC)
     {
         $this->column = $column;
         $this->direction = $direction;

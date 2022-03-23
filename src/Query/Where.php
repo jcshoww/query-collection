@@ -18,6 +18,15 @@ use Jcshoww\QueryCollection\Builder\Builder;
  */
 class Where extends Query
 {
+    public const EQUAL = 'equal';
+    public const NOT_EQUAL = 'not_equal';
+    public const GREATER_THEN = 'greater_then';
+    public const GREATER_THEN_OR_EQUAL = 'greater_then_or_equal';
+    public const LESS_THEN = 'less_then';
+    public const LESS_THEN_OR_EQUAL = 'less_then_or_equal';
+    public const LIKE = 'like';
+    public const NOT_LIKE = 'not_like';
+
     /**
      * Field to search
      * 
@@ -39,7 +48,7 @@ class Where extends Query
      * @param mixed $value
      * @param mixed $comparsion
      */
-    public function __construct(string $field, $value, $comparsion = Builder::EQUAL)
+    public function __construct(string $field, $value, $comparsion = self::EQUAL)
     {
         $this->field = $field;
         $this->value = $value;

@@ -2,6 +2,9 @@
 
 namespace Jcshoww\QueryCollection\Builder;
 
+use Jcshoww\QueryCollection\Query\OrderBy;
+use Jcshoww\QueryCollection\Query\Where;
+
 /**
  * Class ArrayBuilder
  * 
@@ -39,38 +42,38 @@ class ArrayBuilder extends Builder
     /**
      * {@inheritDoc}
      */
-    public function where(string $column, $value, $operator): Builder
+    public function where(string $column, $value, $operator = Where::EQUAL): Builder
     {
         $data = $this->getQuery();
         $result = [];
         foreach ($data as $element) {
             switch ($operator) {
-                case self::EQUAL:
+                case Where::EQUAL:
                     if ($element === $value) {
                         $result[] = $element;
                     }
                     break;
-                case self::NOT_EQUAL:
+                case Where::NOT_EQUAL:
                     if ($element !== $value) {
                         $result[] = $element;
                     }
                     break;
-                case self::GREATER_THEN:
+                case Where::GREATER_THEN:
                     if ($element > $value) {
                         $result[] = $element;
                     }
                     break;
-                case self::GREATER_THEN_OR_EQUAL:
+                case Where::GREATER_THEN_OR_EQUAL:
                     if ($element >= $value) {
                         $result[] = $element;
                     }
                     break;
-                case self::LESS_THEN:
+                case Where::LESS_THEN:
                     if ($element < $value) {
                         $result[] = $element;
                     }
                     break;
-                case self::LESS_THEN_OR_EQUAL:
+                case Where::LESS_THEN_OR_EQUAL:
                     if ($element <= $value) {
                         $result[] = $element;
                     }
@@ -88,7 +91,7 @@ class ArrayBuilder extends Builder
     public function orderBy(string $column, string $direction): Builder
     {
         $data = $this->getQuery();
-        if ($direction === self::DIRECTION_ASC) {
+        if ($direction === OrderBy::DIRECTION_ASC) {
             sort($data);
         } else {
             rsort($data);

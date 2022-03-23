@@ -2,6 +2,9 @@
 
 namespace Jcshoww\QueryCollection\Builder;
 
+use Jcshoww\QueryCollection\Query\OrderBy;
+use Jcshoww\QueryCollection\Query\Where;
+
 /**
  * Class Builder
  *
@@ -9,16 +12,6 @@ namespace Jcshoww\QueryCollection\Builder;
  */
 abstract class Builder
 {
-    public const EQUAL = 'equal';
-    public const NOT_EQUAL = 'not_equal';
-    public const GREATER_THEN = 'greater_then';
-    public const GREATER_THEN_OR_EQUAL = 'greater_then_or_equal';
-    public const LESS_THEN = 'less_then';
-    public const LESS_THEN_OR_EQUAL = 'less_then_or_equal';
-
-    public const DIRECTION_ASC = 'asc';
-    public const DIRECTION_DESC = 'desc';
-
     /**
      * Query builder entity
      * 
@@ -101,12 +94,14 @@ abstract class Builder
     public function getComparsions(): array
     {
         return [
-            self::EQUAL => '=',
-            self::NOT_EQUAL => '!=',
-            self::GREATER_THEN => '>',
-            self::GREATER_THEN_OR_EQUAL => '>=',
-            self::LESS_THEN => '<',
-            self::LESS_THEN_OR_EQUAL => '<='
+            Where::EQUAL => '=',
+            Where::NOT_EQUAL => '!=',
+            Where::GREATER_THEN => '>',
+            Where::GREATER_THEN_OR_EQUAL => '>=',
+            Where::LESS_THEN => '<',
+            Where::LESS_THEN_OR_EQUAL => '<=',
+            Where::LIKE => 'LIKE',
+            Where::NOT_LIKE => 'NOT LIKE',
         ];
     }
 
@@ -118,8 +113,8 @@ abstract class Builder
     public function getDirections(): array
     {
         return [
-            self::DIRECTION_ASC => 'ASC',
-            self::DIRECTION_DESC => 'DESC',
+            OrderBy::DIRECTION_ASC => 'ASC',
+            OrderBy::DIRECTION_DESC => 'DESC',
         ];
     }
 }
