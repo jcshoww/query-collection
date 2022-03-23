@@ -2,6 +2,7 @@
 
 namespace Jcshoww\QueryCollection\Builder;
 
+use Exception;
 use Jcshoww\QueryCollection\Query\OrderBy;
 use Jcshoww\QueryCollection\Query\Where;
 
@@ -116,5 +117,39 @@ abstract class Builder
             OrderBy::DIRECTION_ASC => 'ASC',
             OrderBy::DIRECTION_DESC => 'DESC',
         ];
+    }
+
+    /**
+     * Function returns comparsion builder-related operator by passed comparsion variable
+     * 
+     * @param mixed $comparsion
+     * 
+     * @return mixed
+     */
+    public function parseComparsion($comparsion)
+    {
+        $comparsions = $this->getComparsions();
+        if (isset($comparsions[$comparsion]) === false) {
+            throw new Exception("Builder does not provide passed comparsion");
+        }
+
+        return $comparsions[$comparsion];
+    }
+
+    /**
+     * Function returns builder-related direction by passed direction variable
+     * 
+     * @param mixed $direction
+     * 
+     * @return mixed
+     */
+    public function parseDirection($direction)
+    {
+        $directions = $this->getDirections();
+        if (isset($directions[$direction]) === false) {
+            throw new Exception("Builder does not provide passed direction");
+        }
+
+        return $directions[$direction];
     }
 }
