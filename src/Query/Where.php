@@ -10,7 +10,7 @@ use Jcshoww\QueryCollection\Builder\Builder;
  * Class describes basic where object for queries
  * 
  * @property string $field
- * @property string $comparsion
+ * @property string $comparison
  * @property mixed $value
  * 
  * @author jcshow
@@ -26,6 +26,8 @@ class Where extends Query
     public const LESS_THEN_OR_EQUAL = 'less_then_or_equal';
     public const LIKE = 'like';
     public const NOT_LIKE = 'not_like';
+    public const IN = 'in';
+    public const NOT_IN = 'not_in';
 
     /**
      * Field to search
@@ -35,24 +37,24 @@ class Where extends Query
     public $field;
 
     /**
-     * Comparsion of search
+     * Comparison of search
      * 
      * @var mixed
      */
-    public $comparsion;
+    public $comparison;
 
     /**
      * Where constructor, expects at least field and value
      * 
      * @param string $field
      * @param mixed $value
-     * @param mixed $comparsion
+     * @param mixed $comparison
      */
-    public function __construct(string $field, $value, $comparsion = self::EQUAL)
+    public function __construct(string $field, $value, $comparison = self::EQUAL)
     {
         $this->field = $field;
         $this->value = $value;
-        $this->comparsion = $comparsion;
+        $this->comparison = $comparison;
     }
 
     /**
@@ -60,7 +62,7 @@ class Where extends Query
      */
     public function apply(Builder $builder): Query
     {
-        $builder->where($this->field, $this->value, $this->comparsion);
+        $builder->where($this->field, $this->value, $this->comparison);
         return $this;
     }
 
@@ -70,5 +72,15 @@ class Where extends Query
     public function getKey()
     {
         return $this->field;
+    }
+
+    /**
+     * Function returns query's comparison
+     * 
+     * @return mixed
+     */
+    public function getComparison()
+    {
+        return $this->comparison;
     }
 }

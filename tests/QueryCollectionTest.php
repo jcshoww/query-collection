@@ -2,7 +2,10 @@
 
 namespace Jcshoww\QueryCollection\Test;
 
+use Jcshoww\QueryCollection\Query\OrderBy;
+use Jcshoww\QueryCollection\Query\Pagination;
 use Jcshoww\QueryCollection\Query\Where;
+use Jcshoww\QueryCollection\Query\WhereGroup;
 use Jcshoww\QueryCollection\QueryCollection;
 
 /**
@@ -204,6 +207,245 @@ class QueryCollectionTest extends TestCase
         
         $result = $collection->toArray();
         $this->assertNotEmpty($result);
-        $this->assertCount(2, $result); 
+        $this->assertCount(2, $result);
+    }
+
+    /**
+     * Test collection equal method
+     */
+    public function testSuccessEqual()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->equal($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getKey(), $key);
+        $this->assertEquals($result[0]->getValue(), $value);
+        $this->assertEquals($result[0]->getComparison(), Where::EQUAL);
+    }
+
+    /**
+     * Test collection equal method
+     */
+    public function testSuccessNotEqual()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->notEqual($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::NOT_EQUAL);
+    }
+
+    /**
+     * Test collection greater then method
+     */
+    public function testSuccessGreaterThen()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->greaterThen($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::GREATER_THEN);
+    }
+
+    /**
+     * Test collection greater then method
+     */
+    public function testSuccessGreaterThenOrEqual()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->greaterThenOrEqual($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::GREATER_THEN_OR_EQUAL);
+    }
+
+    /**
+     * Test collection less then method
+     */
+    public function testSuccessLessThen()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->lessThen($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::LESS_THEN);
+    }
+
+    /**
+     * Test collection less then method
+     */
+    public function testSuccessLessThenOrEqual()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->lessThenOrEqual($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::LESS_THEN_OR_EQUAL);
+    }
+
+    /**
+     * Test collection like method
+     */
+    public function testSuccessLike()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->like($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::LIKE);
+    }
+
+    /**
+     * Test collection not like method
+     */
+    public function testSuccessNotLike()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = 'test3';
+        $collection->notLike($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::NOT_LIKE);
+    }
+
+    /**
+     * Test collection in method
+     */
+    public function testSuccessIn()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = ['test3'];
+        $collection->in($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::IN);
+    }
+
+    /**
+     * Test collection not in method
+     */
+    public function testSuccessNotIn()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $value = ['test3'];
+        $collection->notIn($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Where);
+        $this->assertEquals($result[0]->getComparison(), Where::NOT_IN);
+    }
+
+    /**
+     * Test collection order by method
+     */
+    public function testSuccessOrderBy()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $collection->orderBy($key);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof OrderBy);
+        $this->assertEquals($result[0]->getColumn(), $key);
+        $this->assertEquals($result[0]->getDirection(), OrderBy::DIRECTION_ASC);
+    }
+
+    /**
+     * Test collection order by desc method
+     */
+    public function testSuccessOrderByDesc()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $collection->orderByDesc($key);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof OrderBy);
+        $this->assertEquals($result[0]->getColumn(), $key);
+        $this->assertEquals($result[0]->getDirection(), OrderBy::DIRECTION_DESC);
+    }
+
+    /**
+     * Test collection paginate method
+     */
+    public function testSuccessPaginate()
+    {
+        $collection = new QueryCollection();
+        $collection->paginate();
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof Pagination);
+        $this->assertEquals($result[0]->getLimit(), QueryCollection::PAGENAV_DEFAULT_LIMIT);
+        $this->assertEquals($result[0]->getOffset(), QueryCollection::PAGENAV_DEFAULT_OFFSET);
+    }
+
+    /**
+     * Test collection group method
+     */
+    public function testSuccessGroup()
+    {
+        $collection = new QueryCollection();
+        $key = 'test';
+        $subqueries = new QueryCollection([$key => $key]);
+        $collection->group($subqueries);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof WhereGroup);
+        $this->assertEquals($result[0]->getSubqueries(), $subqueries);
     }
 }

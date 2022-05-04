@@ -5,6 +5,7 @@ namespace Jcshoww\QueryCollection\Builder;
 use Exception;
 use Jcshoww\QueryCollection\Query\OrderBy;
 use Jcshoww\QueryCollection\Query\Where;
+use Jcshoww\QueryCollection\QueryCollection;
 
 /**
  * Class Builder
@@ -61,6 +62,21 @@ abstract class Builder
     abstract public function where(string $column, $value, $operator): Builder;
 
     /**
+     * Method for where query with "or". Default functionality is just repeat where
+     * 
+     * @param string $column
+     * @param mixed $value
+     * @param mixed $operator
+     * 
+     * @return Builder
+     */
+    public function orWhere(string $column, $value, $operator): Builder
+    {
+        $this->where($column, $value, $operator);
+        return $this;
+    }
+
+    /**
      * Set the ordering of query
      *
      * @param string $column
@@ -81,6 +97,21 @@ abstract class Builder
     abstract public function paginate(int $limit = 50, int $offset = 0): Builder;
 
     /**
+     * Process group of related queries
+     *
+     * @param QueryCollection $subqueries
+     * 
+     * @return Builder
+     */
+    public function group(QueryCollection $subqueries): Builder
+    {
+        foreach ($subqueries as $subquery) {
+            $subquery->apply($this);
+        }
+        return $this;
+    }
+
+    /**
      * Function returns result of current query set
      * 
      * @return mixed
@@ -88,11 +119,11 @@ abstract class Builder
     abstract public function get();
 
     /**
-     * Function returns list of Where comparsions of builder
+     * Function returns list of Where comparisons of builder
      * 
      * @return array
      */
-    public function getComparsions(): array
+    public function getComparisons(): array
     {
         return [
             Where::EQUAL => '=',
@@ -103,6 +134,8 @@ abstract class Builder
             Where::LESS_THEN_OR_EQUAL => '<=',
             Where::LIKE => 'LIKE',
             Where::NOT_LIKE => 'NOT LIKE',
+            Where::IN => 'IN',
+            Where::NOT_IN => 'NOT IN',
         ];
     }
 
@@ -120,20 +153,20 @@ abstract class Builder
     }
 
     /**
-     * Function returns comparsion builder-related operator by passed comparsion variable
+     * Function returns comparison builder-related operator by passed comparison variable
      * 
-     * @param mixed $comparsion
+     * @param mixed $comparison
      * 
      * @return mixed
      */
-    public function parseComparsion($comparsion)
+    public function parseComparison($comparison)
     {
-        $comparsions = $this->getComparsions();
-        if (isset($comparsions[$comparsion]) === false) {
-            throw new Exception("Builder does not provide passed comparsion");
+        $comparisons = $this->getComparisons();
+        if (isset($comparisons[$comparison]) === false) {
+            throw new Exception("Builder does not provide passed comparison");
         }
 
-        return $comparsions[$comparsion];
+        return $comparisons[$comparison];
     }
 
     /**

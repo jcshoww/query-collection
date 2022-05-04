@@ -5,8 +5,12 @@ namespace Jcshoww\QueryCollection;
 use ArrayAccess;
 use Iterator;
 use Jcshoww\QueryCollection\Builder\Builder;
+use Jcshoww\QueryCollection\Query\OrderBy;
+use Jcshoww\QueryCollection\Query\OrWhere;
+use Jcshoww\QueryCollection\Query\Pagination;
 use Jcshoww\QueryCollection\Query\Query;
 use Jcshoww\QueryCollection\Query\Where;
+use Jcshoww\QueryCollection\Query\WhereGroup;
 use OutOfBoundsException;
 use RuntimeException;
 
@@ -40,7 +44,7 @@ class QueryCollection implements ArrayAccess, Iterator
     protected $queries = [];
 
     /**
-     * Default constructor appends every array field=>value as new filter with equal comparsion
+     * Default constructor appends every array field=>value as new filter with equal comparison
      * 
      * @param array $fields
      */
@@ -393,5 +397,244 @@ class QueryCollection implements ArrayAccess, Iterator
             $query->apply($builder);
         }
         return $builder->get();
+    }
+
+    /**
+     * Function creates new collection instance
+     * 
+     * @return static
+     */
+    public static function create(): self
+    {
+        return new static();
+    }
+
+    /**
+     * Function assigns new Where filter with equal comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function equal(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with not-equal comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function notEqual(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Where::NOT_EQUAL);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with greater then comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function greaterThen(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Where::GREATER_THEN);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "greater then or equal" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function greaterThenOrEqual(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Where::GREATER_THEN_OR_EQUAL);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "less then" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function lessThen(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Where::LESS_THEN);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "less then or equal" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function lessThenOrEqual(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Where::LESS_THEN_OR_EQUAL);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "like" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function like(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Where::LIKE);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "not like" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function notLike(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Where::NOT_LIKE);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with IN comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function in(string $field, $values, bool $or = false) : QueryCollection
+    {
+        $query = new Where($field, $values, Where::IN);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with NOT IN comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function notIn(string $field, $values, bool $or = false) : QueryCollection
+    {
+        $query = new Where($field, $values, Where::NOT_IN);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new OrderBy filter with ASC direction
+     * 
+     * @param string $column
+     * 
+     * @return static
+     */
+    public function orderBy(string $column) : QueryCollection
+    {
+        return $this->push(new OrderBy($column, OrderBy::DIRECTION_ASC));
+    }
+
+    /**
+     * Function assigns new OrderBy filter with DESC direction
+     * 
+     * @param string $column
+     * 
+     * @return static
+     */
+    public function orderByDesc(string $column) : QueryCollection
+    {
+        return $this->push(new OrderBy($column, OrderBy::DIRECTION_DESC));
+    }
+
+    /**
+     * Function assigns new Pagination query
+     * 
+     * @param int $limit
+     * @param int $offset
+     * 
+     * @return static
+     */
+    public function paginate(int $limit = self::PAGENAV_DEFAULT_LIMIT, int $offset = self::PAGENAV_DEFAULT_OFFSET) : QueryCollection
+    {
+        return $this->push(new Pagination($limit, $offset));
+    }
+
+    /**
+     * Function assigns new WhereGroup filter
+     * 
+     * @param QueryCollection $group
+     * 
+     * @return static
+     */
+    public function group(QueryCollection $group) : QueryCollection
+    {
+        return $this->push(new WhereGroup($group));
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Jcshoww\QueryCollection\Query;
 
-use App\QueryCollection\Builder\LaravelBuilder;
 use Jcshoww\QueryCollection\Builder\Builder;
 use Jcshoww\QueryCollection\Query\Query;
 
@@ -57,5 +56,25 @@ class Pagination extends Query
     {
         $builder->paginate($this->limit, $this->offset);
         return $this;
+    }
+
+    /**
+     * Function returns query's limit
+     * 
+     * @return int
+     */
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
+
+    /**
+     * Function returns query's offset
+     * 
+     * @return int
+     */
+    public function getOffset(): int
+    {
+        return $this->offset;
     }
 }

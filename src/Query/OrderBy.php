@@ -60,4 +60,24 @@ class OrderBy extends Query
         $builder->orderBy($this->column, $this->direction);
         return $this;
     }
+
+    /**
+     * Function returns ordering column
+     * 
+     * @return string
+     */
+    public function getColumn(): string
+    {
+        return $this->column;
+    }
+
+    /**
+     * Function returns ordering direction
+     * 
+     * @return string
+     */
+    public function getDirection(): string
+    {
+        return $this->direction;
+    }
 }
