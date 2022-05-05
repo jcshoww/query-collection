@@ -77,6 +77,21 @@ abstract class Builder
     }
 
     /**
+     * Method for raw where query. Throws exception by default
+     * 
+     * @param mixed $raw
+     * @param array $values
+     * 
+     * @return Builder
+     * @throws Exception
+     */
+    public function whereRaw($raw, array $values = []): Builder
+    {
+        throw new Exception("Query is not provided by the builder");
+        return $this;
+    }
+
+    /**
      * Set the ordering of query
      *
      * @param string $column

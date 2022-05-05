@@ -6,6 +6,7 @@ use Jcshoww\QueryCollection\Query\OrderBy;
 use Jcshoww\QueryCollection\Query\Pagination;
 use Jcshoww\QueryCollection\Query\Where;
 use Jcshoww\QueryCollection\Query\WhereGroup;
+use Jcshoww\QueryCollection\Query\WhereRaw;
 use Jcshoww\QueryCollection\QueryCollection;
 
 /**
@@ -447,5 +448,23 @@ class QueryCollectionTest extends TestCase
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof WhereGroup);
         $this->assertEquals($result[0]->getSubqueries(), $subqueries);
+    }
+
+    /**
+     * Test collection raw method
+     */
+    public function testSuccessRaw()
+    {
+        $collection = new QueryCollection();
+        $key = 'test = ?';
+        $value = ['test3'];
+        $collection->raw($key, $value);
+        
+        $result = $collection->toArray();
+        $this->assertNotEmpty($result);
+        $this->assertCount(1, $result);
+        $this->assertTrue($result[0] instanceof WhereRaw);
+        $this->assertEquals($result[0]->getRawQuery(), $key);
+        $this->assertEquals($result[0]->getBindings(), $value);
     }
 }

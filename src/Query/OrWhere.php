@@ -37,7 +37,7 @@ class OrWhere extends Query
     }
 
     /**
-     * @return Where
+     * @return OrWhere
      */
     public function apply(Builder $builder): Query
     {

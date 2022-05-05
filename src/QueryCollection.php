@@ -11,6 +11,7 @@ use Jcshoww\QueryCollection\Query\Pagination;
 use Jcshoww\QueryCollection\Query\Query;
 use Jcshoww\QueryCollection\Query\Where;
 use Jcshoww\QueryCollection\Query\WhereGroup;
+use Jcshoww\QueryCollection\Query\WhereRaw;
 use OutOfBoundsException;
 use RuntimeException;
 
@@ -636,5 +637,18 @@ class QueryCollection implements ArrayAccess, Iterator
     public function group(QueryCollection $group) : QueryCollection
     {
         return $this->push(new WhereGroup($group));
+    }
+
+    /**
+     * Function assigns new WhereRaw filter
+     * 
+     * @param mixed $raw
+     * @param array $bindings
+     * 
+     * @return static
+     */
+    public function raw($raw, array $bindings = []) : QueryCollection
+    {
+        return $this->push(new WhereRaw($raw, $bindings));
     }
 }
