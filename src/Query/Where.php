@@ -18,16 +18,16 @@ use Jcshoww\QueryCollection\Builder\Builder;
  */
 class Where extends Query
 {
-    public const EQUAL = 'equal';
-    public const NOT_EQUAL = 'not_equal';
-    public const GREATER_THEN = 'greater_then';
-    public const GREATER_THEN_OR_EQUAL = 'greater_then_or_equal';
-    public const LESS_THEN = 'less_then';
-    public const LESS_THEN_OR_EQUAL = 'less_then_or_equal';
-    public const LIKE = 'like';
-    public const NOT_LIKE = 'not_like';
-    public const IN = 'in';
-    public const NOT_IN = 'not_in';
+    const EQUAL = 'equal';
+    const NOT_EQUAL = 'not_equal';
+    const GREATER_THEN = 'greater_then';
+    const GREATER_THEN_OR_EQUAL = 'greater_then_or_equal';
+    const LESS_THEN = 'less_then';
+    const LESS_THEN_OR_EQUAL = 'less_then_or_equal';
+    const LIKE = 'like';
+    const NOT_LIKE = 'not_like';
+    const IN = 'in';
+    const NOT_IN = 'not_in';
 
     /**
      * Field to search

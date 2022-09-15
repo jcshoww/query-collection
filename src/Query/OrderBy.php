@@ -18,8 +18,8 @@ use Jcshoww\QueryCollection\Query\Query;
  */
 class OrderBy extends Query
 {
-    public const DIRECTION_ASC = 'asc';
-    public const DIRECTION_DESC = 'desc';
+    const DIRECTION_ASC = 'asc';
+    const DIRECTION_DESC = 'desc';
 
     /**
      * {@inheritDoc}
