@@ -3,6 +3,7 @@
 namespace Jcshoww\QueryCollection\Builder;
 
 use Exception;
+use Jcshoww\QueryCollection\Query\Condition\Basic;
 use Jcshoww\QueryCollection\Query\OrderBy;
 use Jcshoww\QueryCollection\Query\Where;
 use Jcshoww\QueryCollection\QueryCollection;
@@ -141,16 +142,16 @@ abstract class Builder
     public function getComparisons(): array
     {
         return [
-            Where::EQUAL => '=',
-            Where::NOT_EQUAL => '!=',
-            Where::GREATER_THEN => '>',
-            Where::GREATER_THEN_OR_EQUAL => '>=',
-            Where::LESS_THEN => '<',
-            Where::LESS_THEN_OR_EQUAL => '<=',
-            Where::LIKE => 'LIKE',
-            Where::NOT_LIKE => 'NOT LIKE',
-            Where::IN => 'IN',
-            Where::NOT_IN => 'NOT IN',
+            Basic::EQUAL => '=',
+            Basic::NOT_EQUAL => '!=',
+            Basic::GREATER_THAN => '>',
+            Basic::GREATER_THAN_OR_EQUAL => '>=',
+            Basic::LESS_THAN => '<',
+            Basic::LESS_THAN_OR_EQUAL => '<=',
+            Basic::LIKE => 'LIKE',
+            Basic::NOT_LIKE => 'NOT LIKE',
+            Basic::IN => 'IN',
+            Basic::NOT_IN => 'NOT IN',
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace Jcshoww\QueryCollection\Builder;
 
+use Jcshoww\QueryCollection\Query\Condition\Basic;
 use Jcshoww\QueryCollection\Query\OrderBy;
 use Jcshoww\QueryCollection\Query\Where;
 
@@ -42,38 +43,38 @@ class ArrayBuilder extends Builder
     /**
      * {@inheritDoc}
      */
-    public function where(string $column, $value, $operator = Where::EQUAL): Builder
+    public function where(string $column, $value, $operator = Basic::EQUAL): Builder
     {
         $data = $this->getQuery();
         $result = [];
         foreach ($data as $element) {
             switch ($operator) {
-                case Where::EQUAL:
+                case Basic::EQUAL:
                     if ($element === $value) {
                         $result[] = $element;
                     }
                     break;
-                case Where::NOT_EQUAL:
+                case Basic::NOT_EQUAL:
                     if ($element !== $value) {
                         $result[] = $element;
                     }
                     break;
-                case Where::GREATER_THEN:
+                case Basic::GREATER_THAN:
                     if ($element > $value) {
                         $result[] = $element;
                     }
                     break;
-                case Where::GREATER_THEN_OR_EQUAL:
+                case Basic::GREATER_THAN_OR_EQUAL:
                     if ($element >= $value) {
                         $result[] = $element;
                     }
                     break;
-                case Where::LESS_THEN:
+                case Basic::LESS_THAN:
                     if ($element < $value) {
                         $result[] = $element;
                     }
                     break;
-                case Where::LESS_THEN_OR_EQUAL:
+                case Basic::LESS_THAN_OR_EQUAL:
                     if ($element <= $value) {
                         $result[] = $element;
                     }

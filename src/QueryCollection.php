@@ -5,6 +5,7 @@ namespace Jcshoww\QueryCollection;
 use ArrayAccess;
 use Iterator;
 use Jcshoww\QueryCollection\Builder\Builder;
+use Jcshoww\QueryCollection\Query\Condition\Basic;
 use Jcshoww\QueryCollection\Query\OrderBy;
 use Jcshoww\QueryCollection\Query\OrWhere;
 use Jcshoww\QueryCollection\Query\Pagination;
@@ -439,7 +440,7 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function notEqual(string $field, $value, bool $or = false): self
     {
-        $query = new Where($field, $value, Where::NOT_EQUAL);
+        $query = new Where($field, $value, Basic::NOT_EQUAL);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -457,7 +458,25 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function greaterThen(string $field, $value, bool $or = false): self
     {
-        $query = new Where($field, $value, Where::GREATER_THEN);
+        $query = new Where($field, $value, Basic::GREATER_THAN);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with greater then comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function greaterThan(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Basic::GREATER_THAN);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -475,7 +494,25 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function greaterThenOrEqual(string $field, $value, bool $or = false): self
     {
-        $query = new Where($field, $value, Where::GREATER_THEN_OR_EQUAL);
+        $query = new Where($field, $value, Basic::GREATER_THAN_OR_EQUAL);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "greater then or equal" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function greaterThanOrEqual(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Basic::GREATER_THAN_OR_EQUAL);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -493,7 +530,25 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function lessThen(string $field, $value, bool $or = false): self
     {
-        $query = new Where($field, $value, Where::LESS_THEN);
+        $query = new Where($field, $value, Basic::LESS_THAN);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "less then" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function lessThan(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Basic::LESS_THAN);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -511,7 +566,25 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function lessThenOrEqual(string $field, $value, bool $or = false): self
     {
-        $query = new Where($field, $value, Where::LESS_THEN_OR_EQUAL);
+        $query = new Where($field, $value, Basic::LESS_THAN_OR_EQUAL);
+        if ($or === true) {
+            $query = new OrWhere($query);
+        }
+        return $this->push($query);
+    }
+
+    /**
+     * Function assigns new Where filter with "less then or equal" comparison
+     * 
+     * @param string $field
+     * @param mixed $value
+     * @param bool $or
+     * 
+     * @return static
+     */
+    public function lessThanOrEqual(string $field, $value, bool $or = false): self
+    {
+        $query = new Where($field, $value, Basic::LESS_THAN_OR_EQUAL);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -529,7 +602,7 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function like(string $field, $value, bool $or = false): self
     {
-        $query = new Where($field, $value, Where::LIKE);
+        $query = new Where($field, $value, Basic::LIKE);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -547,7 +620,7 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function notLike(string $field, $value, bool $or = false): self
     {
-        $query = new Where($field, $value, Where::NOT_LIKE);
+        $query = new Where($field, $value, Basic::NOT_LIKE);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -565,7 +638,7 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function in(string $field, $values, bool $or = false) : QueryCollection
     {
-        $query = new Where($field, $values, Where::IN);
+        $query = new Where($field, $values, Basic::IN);
         if ($or === true) {
             $query = new OrWhere($query);
         }
@@ -583,7 +656,7 @@ class QueryCollection implements ArrayAccess, Iterator
      */
     public function notIn(string $field, $values, bool $or = false) : QueryCollection
     {
-        $query = new Where($field, $values, Where::NOT_IN);
+        $query = new Where($field, $values, Basic::NOT_IN);
         if ($or === true) {
             $query = new OrWhere($query);
         }

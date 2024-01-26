@@ -3,6 +3,7 @@
 namespace Jcshoww\QueryCollection\Query;
 
 use Jcshoww\QueryCollection\Builder\Builder;
+use Jcshoww\QueryCollection\Query\Condition\Basic;
 
 /**
  * Class Where
@@ -50,7 +51,7 @@ class Where extends Query
      * @param mixed $value
      * @param mixed $comparison
      */
-    public function __construct(string $field, $value, $comparison = self::EQUAL)
+    public function __construct(string $field, $value, $comparison = Basic::EQUAL)
     {
         $this->field = $field;
         $this->value = $value;

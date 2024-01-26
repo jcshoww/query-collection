@@ -2,6 +2,7 @@
 
 namespace Jcshoww\QueryCollection\Test;
 
+use Jcshoww\QueryCollection\Query\Condition\Basic;
 use Jcshoww\QueryCollection\Query\OrderBy;
 use Jcshoww\QueryCollection\Query\Pagination;
 use Jcshoww\QueryCollection\Query\Where;
@@ -227,7 +228,7 @@ class QueryCollectionTest extends TestCase
         $this->assertTrue($result[0] instanceof Where);
         $this->assertEquals($result[0]->getKey(), $key);
         $this->assertEquals($result[0]->getValue(), $value);
-        $this->assertEquals($result[0]->getComparison(), Where::EQUAL);
+        $this->assertEquals($result[0]->getComparison(), Basic::EQUAL);
     }
 
     /**
@@ -244,7 +245,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::NOT_EQUAL);
+        $this->assertEquals($result[0]->getComparison(), Basic::NOT_EQUAL);
     }
 
     /**
@@ -261,7 +262,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::GREATER_THEN);
+        $this->assertEquals($result[0]->getComparison(), Basic::GREATER_THAN);
     }
 
     /**
@@ -278,7 +279,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::GREATER_THEN_OR_EQUAL);
+        $this->assertEquals($result[0]->getComparison(), Basic::GREATER_THAN_OR_EQUAL);
     }
 
     /**
@@ -295,7 +296,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::LESS_THEN);
+        $this->assertEquals($result[0]->getComparison(), Basic::LESS_THAN);
     }
 
     /**
@@ -312,7 +313,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::LESS_THEN_OR_EQUAL);
+        $this->assertEquals($result[0]->getComparison(), Basic::LESS_THAN_OR_EQUAL);
     }
 
     /**
@@ -329,7 +330,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::LIKE);
+        $this->assertEquals($result[0]->getComparison(), Basic::LIKE);
     }
 
     /**
@@ -346,7 +347,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::NOT_LIKE);
+        $this->assertEquals($result[0]->getComparison(), Basic::NOT_LIKE);
     }
 
     /**
@@ -363,7 +364,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::IN);
+        $this->assertEquals($result[0]->getComparison(), Basic::IN);
     }
 
     /**
@@ -380,7 +381,7 @@ class QueryCollectionTest extends TestCase
         $this->assertNotEmpty($result);
         $this->assertCount(1, $result);
         $this->assertTrue($result[0] instanceof Where);
-        $this->assertEquals($result[0]->getComparison(), Where::NOT_IN);
+        $this->assertEquals($result[0]->getComparison(), Basic::NOT_IN);
     }
 
     /**
